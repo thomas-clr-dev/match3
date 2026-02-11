@@ -3,46 +3,53 @@ using System.Collections;
 
 public class Piece : MonoBehaviour
 {
-
     public int x;
     public int y;
     public PieceType type;
 
     private SpriteRenderer _renderer;
+    private Coroutine _currentMoveCoroutine; // On garde une référence de l'animation en cours
 
-    private void Awake()
+    void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Setup(int x, int y,  PieceType type)
+    public void Setup(int x, int y, PieceType type)
     {
         this.x = x;
         this.y = y;
         this.type = type;
-        _renderer.sprite = type.visual;
-
-        // Name the object to facilitate the hierarchy debug
+        if (_renderer != null && type != null) _renderer.sprite = type.visual;
         gameObject.name = $"Piece_{x}_{y}";
     }
 
     public IEnumerator MoveTo(Vector3 targetPos, float duration)
+    {
+        // 1. Si une animation est DÉJÀ en cours, on l'arrête net !
+        if (_currentMoveCoroutine != null) StopCoroutine(_currentMoveCoroutine);
+
+        // 2. On lance la nouvelle animation
+        _currentMoveCoroutine = StartCoroutine(MoveRoutine(targetPos, duration));
+        yield return _currentMoveCoroutine;
+    }
+
+    private IEnumerator MoveRoutine(Vector3 targetPos, float duration)
     {
         Vector3 startPos = transform.position;
         float elapsed = 0;
 
         while (elapsed < duration)
         {
-            // Critic Security : If the object is destroy, we break
             if (this == null) yield break;
 
-            // Lerp = Linear Interpolation (fluid movevement)
-            transform.position = Vector3.Lerp(startPos, targetPos, elapsed);
+            // Interpolation fluide
+            transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
             elapsed += Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
         if (this != null) transform.position = targetPos;
+        _currentMoveCoroutine = null; // Animation finie, on libère la référence
     }
-
 }

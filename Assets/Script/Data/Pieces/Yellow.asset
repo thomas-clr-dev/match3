@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75e9277fa1b823c4e9e06ff577db2641, type: 3}
   m_Name: Yellow
   m_EditorClassIdentifier: Assembly-CSharp::PieceType
-  id: 
-  visual: {fileID: 0}
+  id: YellowPiece
+  visual: {fileID: -2413806693520163455, guid: 655290b8a2a782d468506c9429cc1c29, type: 3}
   pointsValue: 10

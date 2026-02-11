@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public static class CoreSystem
+public static class ServiceLocator
 {
 
     private static readonly Dictionary<Type, IGameService> _services = new Dictionary<Type, IGameService>();
@@ -16,7 +16,7 @@ public static class CoreSystem
         }
         else
         {
-            _services[type] = service; // Update the old value if we reload the scene
+            _services[type] = service; // Update the old value if we re the scene
         }
     }
 

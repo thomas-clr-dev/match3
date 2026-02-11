@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   columns: 8
   rows: 8
-  targetScore: 1000
+  targetScore: 3000
   moveLimit: 20
-  availableTypes: []
+  availableTypes:
+  - {fileID: 11400000, guid: 7bf71ab3e02ec0340a503d706908cc2f, type: 2}
+  - {fileID: 11400000, guid: 3c559f1ca0e51904c88e36f087ae47df, type: 2}
+  - {fileID: 11400000, guid: 2159640545b16ff4ba87842a69740e2b, type: 2}
