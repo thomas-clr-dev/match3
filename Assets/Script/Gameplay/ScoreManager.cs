@@ -54,6 +54,7 @@ public class ScoreManager : MonoBehaviour, IGameService
             Utils.ColorLog("VICORY !", "green");
             GameEvents.OnLevelEnded?.Invoke(true);
             GameEvents.OnInputLocked?.Invoke(); // Game End
+            Time.timeScale = 0f; // Freeze the game
         }
     }
     private void CheckLoseCondition()
@@ -63,6 +64,7 @@ public class ScoreManager : MonoBehaviour, IGameService
             Utils.ColorLog("DEFEAT !", "red");
             GameEvents.OnLevelEnded?.Invoke(false);
             GameEvents.OnInputLocked?.Invoke(); // Game End
+            Time.timeScale = 0f; // Freeze the game
         }
     }
 

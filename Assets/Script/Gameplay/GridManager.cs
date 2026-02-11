@@ -46,7 +46,7 @@ public class GridManager : MonoBehaviour, IGameService
     private void Start()
     {
         InitializeGrid();
-        CenterCamera();
+        AdaptCameraToGrid();
     }
 
     void InitializeGrid()
@@ -258,11 +258,35 @@ public class GridManager : MonoBehaviour, IGameService
         yield return new WaitForSeconds(brainTime);
     }
 
-    void CenterCamera()
+    void AdaptCameraToGrid()
     {
-        float x = (levelData.columns - 1) / 2f;
-        float y = (levelData.rows - 1) / 2f;
-        Camera.main.transform.position = new Vector3(x, y, -10);
-        Camera.main.orthographicSize = Mathf.Max(levelData.rows, levelData.columns) * 0.7f + 1;
+        // 1. PLACER LA CAMÉRA AU CENTRE
+        // Le centre est toujours : (NbColonnes - 1) / 2
+        float xCenter = (levelData.columns - 1) / 2f;
+        float yCenter = (levelData.rows - 1) / 2f;
+
+        // On décale un peu le Y vers le haut ou le bas si tu as beaucoup d'UI (Score/Menu)
+        // Ici je le laisse centré
+        Camera.main.transform.position = new Vector3(xCenter, yCenter, -10f);
+
+        // 2. CALCULER LE ZOOM (Orthographic Size)
+
+        // Ratio de l'écran (Largeur / Hauteur)
+        float screenRatio = (float)Screen.width / (float)Screen.height;
+
+        // Taille nécessaire pour la hauteur (Rows / 2 car orthographicSize est une demi-hauteur)
+        float targetHeight = levelData.rows / 2f;
+
+        // Taille nécessaire pour la largeur (Columns / 2 / Ratio)
+        float targetWidth = (levelData.columns / 2f) / screenRatio;
+
+        // On prend le maximum des deux pour être sûr que tout rentre (Largeur ET Hauteur)
+        float requiredSize = Mathf.Max(targetHeight, targetWidth);
+
+        // 3. AJOUTER UNE MARGE (PADDING)
+        // Ajoute +1.5f ou +2f pour laisser de la place sur les bords pour ton UI (Score, etc.)
+        float padding = 2.0f;
+
+        Camera.main.orthographicSize = requiredSize + padding;
     }
 }

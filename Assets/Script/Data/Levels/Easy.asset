@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbf59015c3d6e7f428ba2302f1f33e3a, type: 3}
-  m_Name: 16x6
+  m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  columns: 16
-  rows: 6
-  targetScore: 1000
+  columns: 8
+  rows: 8
+  targetScore: 3000
   moveLimit: 20
   availableTypes:
   - {fileID: 11400000, guid: 7bf71ab3e02ec0340a503d706908cc2f, type: 2}
   - {fileID: 11400000, guid: 3c559f1ca0e51904c88e36f087ae47df, type: 2}
   - {fileID: 11400000, guid: 2159640545b16ff4ba87842a69740e2b, type: 2}
-  - {fileID: 11400000, guid: 9030fc6eb141c9b4ba764396ac77e774, type: 2}
-  - {fileID: 11400000, guid: d1c4175972e36094b894cb45ce2e5680, type: 2}
